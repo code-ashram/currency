@@ -1,0 +1,14 @@
+{
+  "base_currency_code": "RUB",
+  "base_currency_name": "Russian ruble",
+  "amount": "10.0000",
+  "updated_date": "2023-04-04",
+  "rates": {
+    "USD": {
+      "currency_name": "United States dollar",
+      "rate": "0.0126",
+      "rate_for_amount": "0.1261"
+    }
+  },
+  "status": "success"
+}
