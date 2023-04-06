@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -7,11 +7,21 @@
     <title>Currency converter</title>
 </head>
 <body>
-<div id="app">
-    <div class="container py-4 px-3 mx-auto">
-        <h1>Hello, Bootstrap and Vite!</h1>
-        <button class="btn btn-primary">Primary button</button>
-    </div>
+<div id="app" class="container">
+    <form action="#" class="form">
+
+        <div class="input-group mb-3">
+            <span class="input-group-text form__currency-name">@</span>
+            <select class="form-select" id="from" aria-label="Default select example"></select>
+        </div>
+
+        <div class="input-group mb-3">
+            <span class="input-group-text form__currency-name">@</span>
+            <select class="form-select" id="to" aria-label="Default select example"></select>
+        </div>
+
+
+    </form>
 </div>
 <script type="module" src="/src/main.ts"></script>
 </body>
