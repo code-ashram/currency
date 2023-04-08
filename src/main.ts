@@ -2,7 +2,7 @@
 import * as bootstrap from 'bootstrap'
 import './style.scss'
 import { getConvertCurrency, getCurrencyList } from './api'
-import { addOptions } from './dom/general'
+import { addOptions} from './dom/general'
 
 getCurrencyList()
   .then((response) => console.log(response))
@@ -12,3 +12,4 @@ getConvertCurrency('USD', 'BYN', '100')
 
 getCurrencyList()
   .then((response) => addOptions(response.currencies))
+
