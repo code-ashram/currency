@@ -2,11 +2,13 @@ import { CurrencyCode } from '../types'
 
 const fromCurrencySelect = document.getElementById('from') as HTMLSelectElement
 const toCurrencySelect = document.getElementById('to') as HTMLSelectElement
+const labelFrom = document.getElementById('labelFrom') as HTMLSpanElement
+const labelTo = document.getElementById('labelTo') as HTMLSpanElement
 
-export const createOption = (optionText: string): HTMLOptionElement => {
+export const createOption = (optionText: string, optionValue: string): HTMLOptionElement => {
   const option = document.createElement('option') as HTMLOptionElement
 
-  option.value = `${optionText}`
+  option.value = optionValue
   option.text = optionText
 
   return option
@@ -14,10 +16,23 @@ export const createOption = (optionText: string): HTMLOptionElement => {
 
 export const addOptions = (currencies: Record<CurrencyCode, string>):void => {
 
-  const options: Array<HTMLOptionElement> = Object.keys(currencies).map((currencyKey) => createOption(currencyKey))
+  const optionsFrom: Array<HTMLOptionElement> = Object.entries(currencies)
+    .map((currencyKey) => createOption(currencyKey[1], currencyKey[0]))
 
-  const optionsCopy: Array<HTMLOptionElement> = Object.keys(currencies).map((currencyKey) => createOption(currencyKey))
+  const optionsTo: Array<HTMLOptionElement> = Object.entries(currencies)
+    .map((currencyKey) => createOption(currencyKey[1], currencyKey[0]))
 
-  fromCurrencySelect.append(...options)
-  toCurrencySelect.append(...optionsCopy)
+  fromCurrencySelect.append(...optionsFrom)
+  toCurrencySelect.append(...optionsTo)
+
+  labelFrom.textContent = fromCurrencySelect.value
+  labelTo.textContent = toCurrencySelect.value
+
+  fromCurrencySelect.addEventListener('change', (event) => {
+    labelFrom.textContent = (event.target as HTMLOptionElement).value
+  })
+
+  toCurrencySelect.addEventListener('change', (event) => {
+    labelTo.textContent = (event.target as HTMLOptionElement).value
+  })
 }

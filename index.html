@@ -11,14 +11,20 @@
     <form action="#" class="form">
 
         <div class="input-group mb-3">
-            <span class="input-group-text form__currency-name">@</span>
+            <span class="input-group-text form__currency-name" id="labelFrom">@</span>
             <select class="form-select" id="from" aria-label="Default select example"></select>
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text form__currency-name">@</span>
+            <span class="input-group-text form__currency-name" id="labelTo">@</span>
             <select class="form-select" id="to" aria-label="Default select example"></select>
         </div>
+
+        <div class="input-group mb-3">
+            <input type="number" pattern="^[0-9]+$" class="form-control" placeholder="Enter amount here..." aria-label="Amount" aria-describedby="button">
+            <button class="btn btn-primary" type="button" id="button">Convert</button>
+        </div>
+
 
 
     </form>
