@@ -16,10 +16,10 @@ export const createOption = (optionText: string, optionValue: string): HTMLOptio
 
 export const addOptions = (currencies: Record<CurrencyCode, string>):void => {
 
-  const optionsFrom: Array<HTMLOptionElement> = Object.entries(currencies)
+  const optionsFrom: Array<HTMLOptionElement> = Object.entries(currencies).sort()
     .map((currencyKey) => createOption(currencyKey[1], currencyKey[0]))
 
-  const optionsTo: Array<HTMLOptionElement> = Object.entries(currencies)
+  const optionsTo: Array<HTMLOptionElement> = Object.entries(currencies).sort()
     .map((currencyKey) => createOption(currencyKey[1], currencyKey[0]))
 
   fromCurrencySelect.append(...optionsFrom)
