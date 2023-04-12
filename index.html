@@ -8,27 +8,26 @@
 </head>
 <body>
 <div id="app" class="container">
-    <form action="#" class="form">
+    <form action="#" class="form" id="form">
         <div class="input-group mb-3">
-            <span class="input-group-text form__currency-name" id="labelFrom">@</span>
-            <select class="form-select" id="from" aria-label="Default select example"></select>
+            <span class="input-group-text form__currency-name" id="labelFrom"></span>
+            <select class="form-select" id="from" aria-label="Chose currency which you want to exchange"></select>
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text form__currency-name" id="labelTo">@</span>
-            <select class="form-select" id="to" aria-label="Default select example"></select>
+            <span class="input-group-text form__currency-name" id="labelTo"></span>
+            <select class="form-select" id="to" aria-label="Chose currency which you want to get"></select>
         </div>
 
         <div class="input-group mb-3">
-            <input type="number" pattern="^[0-9]+$" class="form-control" placeholder="Enter amount here..." aria-label="Amount" aria-describedby="button">
-            <button class="btn btn-primary" type="button" id="button">Convert</button>
+            <input type="number" class="form-control" id="input" min="0" placeholder="Enter amount here..." aria-label="Amount" aria-describedby="button">
+            <button class="btn btn-primary" type="submit">Convert</button>
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="output">You'll get</span>
-            <output class="form-control" aria-label="Sum which you get" aria-describedby="Sum which you get">
+            <span class="input-group-text" >You'll get</span>
+            <output class="form-control" id="output" aria-label="Sum which you get" aria-describedby="Sum which you get"></output>
         </div>
-
     </form>
 </div>
 <script type="module" src="/src/main.ts"></script>

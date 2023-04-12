@@ -1,9 +1,11 @@
 import { CurrencyCode } from '../types'
+import { getConvertCurrency } from '../api'
 
+const converterForm = document.getElementById('form') as HTMLFormElement
 const fromCurrencySelect = document.getElementById('from') as HTMLSelectElement
 const toCurrencySelect = document.getElementById('to') as HTMLSelectElement
-const labelFrom = document.getElementById('labelFrom') as HTMLSpanElement
-const labelTo = document.getElementById('labelTo') as HTMLSpanElement
+const fromLabel = document.getElementById('labelFrom') as HTMLSpanElement
+const toLabel = document.getElementById('labelTo') as HTMLSpanElement
 
 export const createOption = (optionText: string, optionValue: string): HTMLOptionElement => {
   const option = document.createElement('option') as HTMLOptionElement
@@ -14,7 +16,7 @@ export const createOption = (optionText: string, optionValue: string): HTMLOptio
   return option
 }
 
-export const addOptions = (currencies: Record<CurrencyCode, string>):void => {
+export const addOptions = (currencies: Record<CurrencyCode, string>): void => {
 
   const optionsFrom: Array<HTMLOptionElement> = Object.entries(currencies).sort()
     .map((currencyKey) => createOption(currencyKey[1], currencyKey[0]))
@@ -25,14 +27,29 @@ export const addOptions = (currencies: Record<CurrencyCode, string>):void => {
   fromCurrencySelect.append(...optionsFrom)
   toCurrencySelect.append(...optionsTo)
 
-  labelFrom.textContent = fromCurrencySelect.value
-  labelTo.textContent = toCurrencySelect.value
+  fromLabel.textContent = fromCurrencySelect.value
+  toLabel.textContent = toCurrencySelect.value
 
   fromCurrencySelect.addEventListener('change', (event) => {
-    labelFrom.textContent = (event.target as HTMLOptionElement).value
+    fromLabel.textContent = (event.target as HTMLOptionElement).value
   })
 
   toCurrencySelect.addEventListener('change', (event) => {
-    labelTo.textContent = (event.target as HTMLOptionElement).value
+    toLabel.textContent = (event.target as HTMLOptionElement).value
   })
 }
+
+converterForm.addEventListener('submit', (): void => {
+  const input = document.getElementById('input') as HTMLInputElement
+  const output = document.getElementById('output') as HTMLOutputElement
+
+  const from = fromLabel.textContent as CurrencyCode
+  const to = toLabel.textContent as CurrencyCode
+  const amount = Number(input.value)
+
+  getConvertCurrency(from, to, amount)
+    .then((response) => {
+      output.textContent = response.rates[to].rate_for_amount
+    })
+})
+
