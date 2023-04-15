@@ -6,3 +6,5 @@ import { addOptions} from './dom/general'
 
 getCurrencyList()
   .then((response) => addOptions(response.currencies))
+
+

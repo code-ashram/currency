@@ -2,10 +2,15 @@
 
 .container {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .form {
   width: 400px;
 }
 
+#myChart {
+  padding: 20px;
+  width: 700px;
+}

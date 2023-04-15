@@ -1,5 +1,6 @@
 import { CurrencyCode } from '../types'
 import { getConvertCurrency } from '../api'
+import Chart from 'chart.js/auto'
 
 const converterForm = document.getElementById('form') as HTMLFormElement
 const fromCurrencySelect = document.getElementById('from') as HTMLSelectElement
@@ -52,4 +53,71 @@ converterForm.addEventListener('submit', (): void => {
       output.textContent = response.rates[to].rate_for_amount
     })
 })
+
+const ctx = document.getElementById('myChart') as HTMLCanvasElement
+
+const labels = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December']
+
+const datapoints = [0, 20, 20, 60, 60, 120, 160, 180, 120, 125, 105, 110, 170]
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'History of the exchange rate for the last 12 months',
+      data: datapoints,
+      borderColor: 'blue',
+      fill: false,
+      cubicInterpolationMode: 'monotone',
+      tension: 0.4
+    }
+  ]
+}
+
+new Chart(
+  ctx,
+  {
+    type: 'line',
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: true
+        }
+      },
+      interaction: {
+        intersect: false
+      },
+      scales: {
+        x: {
+          display: true,
+          title: {
+            display: true
+          }
+        },
+        y: {
+          display: true,
+          title: {
+            display: true,
+            text: 'Value'
+          },
+          suggestedMin: -10,
+          suggestedMax: 200
+        }
+      }
+    }
+  }
+)
 
