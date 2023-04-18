@@ -1,6 +1,7 @@
 import { CurrencyCode } from '../types'
 import { getConvertCurrency } from '../api'
 import Chart from 'chart.js/auto'
+import moment from 'moment';
 
 const converterForm = document.getElementById('form') as HTMLFormElement
 const fromCurrencySelect = document.getElementById('from') as HTMLSelectElement
@@ -121,3 +122,14 @@ new Chart(
   }
 )
 
+export const editDate = (date: string): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    month: 'long'
+  }
+  return new Date(date).toLocaleDateString('en-GB', options)
+}
+
+const filledArray = new Array(7).fill(null).map((_, index) =>
+  Intl.DateTimeFormat('en-CA').format(new Date(new Date().setDate(new Date().getDate() - index))));
+
+console.log(filledArray)
