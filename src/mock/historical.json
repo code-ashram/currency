@@ -1,0 +1,100 @@
+[
+  {
+    "base_currency_code": "EUR",
+    "base_currency_name": "Euro",
+    "amount": "1.0000",
+    "updated_date": "2023-04-19",
+    "rates": {
+      "BYN": {
+        "currency_name": "Belarusian ruble",
+        "rate": "3.2267",
+        "rate_for_amount": "3.2267"
+      }
+    },
+    "status": "success"
+  },
+  {
+    "base_currency_code": "EUR",
+    "base_currency_name": "Euro",
+    "amount": "1.0000",
+    "updated_date": "2023-04-18",
+    "rates": {
+      "BYN": {
+        "currency_name": "Belarusian ruble",
+        "rate": "2.7629",
+        "rate_for_amount": "2.7629"
+      }
+    },
+    "status": "success"
+  },
+  {
+    "base_currency_code": "EUR",
+    "base_currency_name": "Euro",
+    "amount": "1.0000",
+    "updated_date": "2023-04-17",
+    "rates": {
+      "BYN": {
+        "currency_name": "Belarusian ruble",
+        "rate": "2.7506",
+        "rate_for_amount": "2.7506"
+      }
+    },
+    "status": "success"
+  },
+  {
+    "base_currency_code": "EUR",
+    "base_currency_name": "Euro",
+    "amount": "1.0000",
+    "updated_date": "2023-04-16",
+    "rates": {
+      "BYN": {
+        "currency_name": "Belarusian ruble",
+        "rate": "2.7692",
+        "rate_for_amount": "2.7692"
+      }
+    },
+    "status": "success"
+  },
+  {
+    "base_currency_code": "EUR",
+    "base_currency_name": "Euro",
+    "amount": "1.0000",
+    "updated_date": "2023-04-15",
+    "rates": {
+      "BYN": {
+        "currency_name": "Belarusian ruble",
+        "rate": "2.7692",
+        "rate_for_amount": "2.7692"
+      }
+    },
+    "status": "success"
+  },
+  {
+    "base_currency_code": "EUR",
+    "base_currency_name": "Euro",
+    "amount": "1.0000",
+    "updated_date": "2023-04-14",
+    "rates": {
+      "BYN": {
+        "currency_name": "Belarusian ruble",
+        "rate": "2.7692",
+        "rate_for_amount": "2.7692"
+      }
+    },
+    "status": "success"
+  },
+  {
+    "base_currency_code": "EUR",
+    "base_currency_name": "Euro",
+    "amount": "1.0000",
+    "updated_date": "2023-04-13",
+    "rates": {
+      "BYN": {
+        "currency_name": "Belarusian ruble",
+        "rate": "2.8000",
+        "rate_for_amount": "2.8000"
+      }
+    },
+    "status": "success"
+  }
+]

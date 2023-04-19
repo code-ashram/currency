@@ -1,7 +1,7 @@
 import { CurrencyCode } from '../types'
-import { getConvertCurrency } from '../api'
+import { getConvertCurrency, getHistoricalInfo } from '../api'
 import Chart from 'chart.js/auto'
-import moment from 'moment';
+
 
 const converterForm = document.getElementById('form') as HTMLFormElement
 const fromCurrencySelect = document.getElementById('from') as HTMLSelectElement
@@ -55,81 +55,68 @@ converterForm.addEventListener('submit', (): void => {
     })
 })
 
-const ctx = document.getElementById('myChart') as HTMLCanvasElement
-
-const labels = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December']
-
-const datapoints = [0, 20, 20, 60, 60, 120, 160, 180, 120, 125, 105, 110, 170]
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'History of the exchange rate for the last 12 months',
-      data: datapoints,
-      borderColor: 'blue',
-      fill: false,
-      cubicInterpolationMode: 'monotone',
-      tension: 0.4
-    }
-  ]
-}
-
-new Chart(
-  ctx,
-  {
-    type: 'line',
-    data: data,
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-          display: true
-        }
-      },
-      interaction: {
-        intersect: false
-      },
-      scales: {
-        x: {
-          display: true,
-          title: {
-            display: true
-          }
-        },
-        y: {
-          display: true,
-          title: {
-            display: true,
-            text: 'Value'
-          },
-          suggestedMin: -10,
-          suggestedMax: 200
-        }
-      }
-    }
-  }
-)
-
 export const editDate = (date: string): string => {
   const options: Intl.DateTimeFormatOptions = {
+    day: 'numeric',
     month: 'long'
   }
   return new Date(date).toLocaleDateString('en-GB', options)
 }
 
-const filledArray = new Array(7).fill(null).map((_, index) =>
-  Intl.DateTimeFormat('en-CA').format(new Date(new Date().setDate(new Date().getDate() - index))));
+const DAYS_IN_WEEK = 7
 
-console.log(filledArray)
+const dateRange = new Array(DAYS_IN_WEEK).fill(null)
+  .map((_, index) => Intl.DateTimeFormat('en-CA').format(new Date(new Date().setDate(new Date().getDate() - index))))
+
+const dataForChart = await Promise.all(dateRange.map((date) => getHistoricalInfo(date, ('EUR' as CurrencyCode), ('BYN' as CurrencyCode), 1)
+  .then((response) => {
+    return [
+      response.rates['BYN'].rate_for_amount,
+      response.updated_date
+    ]
+  })))
+
+const chart = document.getElementById('myChart') as HTMLCanvasElement
+
+const labels = dataForChart.map((element) => editDate(element[1])).reverse()
+
+const datapoints = dataForChart.map((element) => element[0]).reverse()
+
+const data = {
+  labels: labels,
+
+  datasets: [
+    {
+      label: 'History of the exchange rate for week',
+      data: datapoints,
+      borderColor: 'aqua',
+      backgroundColor: 'rgba(0,255,255,0.18)',
+      fill: true,
+      cubicInterpolationMode: 'monotone',
+      tension: 0.2,
+      hoverRadius: 10,
+      hoverBackgroundColor: 'red',
+    }
+  ]
+}
+
+new Chart(
+  chart,
+  {
+    type: 'line',
+    data: data,
+    options: {
+      animations: {
+        radius: {
+          duration: 400,
+          easing: 'linear',
+        }
+      },
+      interaction: {
+        mode: 'nearest',
+        intersect: false,
+        axis: 'x'
+      }
+    }
+  }
+)

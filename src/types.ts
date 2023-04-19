@@ -36,3 +36,5 @@ export type CurrenciesListResponse = Status & {
 export type ConversionResponse = Status & BasicConversion & {
   rates: Record<CurrencyCode, Currency>
 }
+
+export type DateRangeData = ConversionResponse[]
