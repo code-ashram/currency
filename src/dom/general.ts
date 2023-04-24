@@ -1,14 +1,7 @@
 import { CurrencyCode } from '../types'
-import { getConvertCurrency, getHistoricalInfo } from '../api'
-import Chart from 'chart.js/auto'
-
-
-const converterForm = document.getElementById('form') as HTMLFormElement
-const fromCurrencySelect = document.getElementById('from') as HTMLSelectElement
-const toCurrencySelect = document.getElementById('to') as HTMLSelectElement
-const fromLabel = document.getElementById('labelFrom') as HTMLSpanElement
-const toLabel = document.getElementById('labelTo') as HTMLSpanElement
-
+import { getConvertCurrency } from '../api'
+import { setHistory } from './chart-data'
+import {converterForm, fromCurrencySelect, toCurrencySelect, fromLabel, toLabel, button} from './selectors'
 export const createOption = (optionText: string, optionValue: string): HTMLOptionElement => {
   const option = document.createElement('option') as HTMLOptionElement
 
@@ -53,70 +46,10 @@ converterForm.addEventListener('submit', (): void => {
     .then((response) => {
       output.textContent = response.rates[to].rate_for_amount
     })
+
 })
 
-export const editDate = (date: string): string => {
-  const options: Intl.DateTimeFormatOptions = {
-    day: 'numeric',
-    month: 'long'
-  }
-  return new Date(date).toLocaleDateString('en-GB', options)
-}
+button.addEventListener('click', setHistory)
 
-const DAYS_IN_WEEK = 7
 
-const dateRange = new Array(DAYS_IN_WEEK).fill(null)
-  .map((_, index) => Intl.DateTimeFormat('en-CA').format(new Date(new Date().setDate(new Date().getDate() - index))))
 
-const dataForChart = await Promise.all(dateRange.map((date) => getHistoricalInfo(date, ('EUR' as CurrencyCode), ('BYN' as CurrencyCode), 1)
-  .then((response) => {
-    return [
-      response.rates['BYN'].rate_for_amount,
-      response.updated_date
-    ]
-  })))
-
-const chart = document.getElementById('myChart') as HTMLCanvasElement
-
-const labels = dataForChart.map((element) => editDate(element[1])).reverse()
-
-const datapoints = dataForChart.map((element) => element[0]).reverse()
-
-const data = {
-  labels: labels,
-
-  datasets: [
-    {
-      label: 'History of the exchange rate for week',
-      data: datapoints,
-      borderColor: 'aqua',
-      backgroundColor: 'rgba(0,255,255,0.18)',
-      fill: true,
-      cubicInterpolationMode: 'monotone',
-      tension: 0.2,
-      hoverRadius: 10,
-      hoverBackgroundColor: 'red',
-    }
-  ]
-}
-
-new Chart(
-  chart,
-  {
-    type: 'line',
-    data: data,
-    options: {
-      animations: {
-        radius: {
-          duration: 400,
-          easing: 'linear',
-        }
-      },
-      interaction: {
-        mode: 'nearest',
-        intersect: false,
-        axis: 'x'
-      }
-    }
-  }
-)
